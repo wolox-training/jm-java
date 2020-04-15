@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class BookController {
 
     @GetMapping("/greeting")
-    public String greeting(@RequestParam(name="name", required=false, defaultValue="Stranger") String name, final Model model) {
+    public String greeting(@RequestParam(name="name", required=false, defaultValue="Stranger") final String name, Model model) {
         model.addAttribute("name", name);
         return "greeting";
     }
