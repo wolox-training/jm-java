@@ -10,7 +10,17 @@ import javax.persistence.Id;
 public class Book {
 
     public Book() {
-        // Book's constructor
+    }
+
+    public Book(String genre, String author, String title, String subtitle, String publisher, String year, Integer pages, String isbn) {
+        this.genre = genre;
+        this.author = author;
+        this.title = title;
+        this.subtitle = subtitle;
+        this.publisher = publisher;
+        this.year = year;
+        this.pages = pages;
+        this.isbn = isbn;
     }
 
     @Id
@@ -43,10 +53,6 @@ public class Book {
 
     public long getId() {
         return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getGenre() {
