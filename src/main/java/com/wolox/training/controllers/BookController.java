@@ -56,6 +56,7 @@ public class BookController {
     }
 
     @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public Book updateBook(@RequestBody Book book, @PathVariable Long id) {
         if (book.getId() != id) {
             throw new BookIdMismatchException();
@@ -64,7 +65,7 @@ public class BookController {
         return bookRepository.save(book);
     }
 
-    @GetMapping("/title/{bookAuthor}")
+    @GetMapping("/author/{bookAuthor}")
     public Book findByAuthor(@PathVariable String bookAuthor) {
         return bookRepository.findByAuthor(bookAuthor).orElseThrow(BookNotFoundException::new);
     }
