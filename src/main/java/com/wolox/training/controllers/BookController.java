@@ -29,7 +29,7 @@ public class BookController {
     }
 
     @GetMapping("/greeting")
-    public ModelAndView greeting (@RequestParam(name="name", required=false, defaultValue="Stranger") final String name, Model model) {
+    public final ModelAndView greeting (@RequestParam(name="name", required=false, defaultValue="Stranger") final String name, Model model) {
         model.addAttribute("name", name);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("greeting");
@@ -37,30 +37,30 @@ public class BookController {
     }
 
     @GetMapping
-    public Iterable<Book> findAll() {
+    public final Iterable<Book> findAll() {
         return bookRepository.findAll();
     }
 
     @GetMapping("/{id}")
-    public Book findOne(@PathVariable Long id) {
+    public final Book findOne(@PathVariable Long id) {
         return bookRepository.findById(id).orElseThrow(BookNotFoundException::new);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Book create(@RequestBody Book book) {
+    public final Book create(@RequestBody Book book) {
         return bookRepository.save(book);
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
+    public final void delete(@PathVariable Long id) {
         bookRepository.findById(id).orElseThrow(BookNotFoundException::new);
         bookRepository.deleteById(id);
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public Book updateBook(@RequestBody Book book, @PathVariable Long id) {
+    public final Book updateBook(@RequestBody Book book, @PathVariable Long id) {
         if (book.getId() != id) {
             throw new BookIdMismatchException();
         }
@@ -69,7 +69,7 @@ public class BookController {
     }
 
     @GetMapping("/author/{bookAuthor}")
-    public Book findByAuthor(@PathVariable String bookAuthor) {
+    public final Iterable<Book> findByAuthor(@PathVariable String bookAuthor) {
         return bookRepository.findByAuthor(bookAuthor).orElseThrow(BookNotFoundException::new);
     }
 
