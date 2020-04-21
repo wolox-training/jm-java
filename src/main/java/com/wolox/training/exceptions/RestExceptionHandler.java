@@ -1,5 +1,7 @@
 package com.wolox.training.exceptions;
 
+import static com.wolox.training.constants.ExceptionMessages.BOOK_ID_MISMATCH;
+
 import javax.validation.ConstraintViolationException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
@@ -12,8 +14,6 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 @ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
-
-    public static final String BOOK_ID_MISMATCH = "Book ID mismatch";
 
     @ExceptionHandler({ BookNotFoundException.class })
     protected final ResponseEntity<Object> handleNotFound(Exception ex, WebRequest request) {
