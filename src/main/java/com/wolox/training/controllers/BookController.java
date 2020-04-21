@@ -29,7 +29,7 @@ public class BookController {
     }
 
     @GetMapping("/greeting")
-    public final ModelAndView greeting (@RequestParam(name="name", required=false, defaultValue="Stranger") final String name, Model model) {
+    public ModelAndView greeting (@RequestParam(name="name", required=false, defaultValue="Stranger") final String name, Model model) {
         model.addAttribute("name", name);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("greeting");
@@ -37,23 +37,23 @@ public class BookController {
     }
 
     @GetMapping
-    public final Iterable<Book> findAll() {
+    public Iterable<Book> findAll() {
         return bookRepository.findAll();
     }
 
     @GetMapping("/{id}")
-    public final Book findOne(@PathVariable final Long id) {
+    public Book findOne(@PathVariable final Long id) {
         return bookRepository.findById(id).orElseThrow(BookNotFoundException::new);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public final Book create(@RequestBody final Book book) {
+    public Book create(@RequestBody final Book book) {
         return bookRepository.save(book);
     }
 
     @DeleteMapping("/{id}")
-    public final void delete(@PathVariable final Long id) {
+    public void delete(@PathVariable final Long id) {
         bookRepository.findById(id).orElseThrow(BookNotFoundException::new);
         bookRepository.deleteById(id);
     }
