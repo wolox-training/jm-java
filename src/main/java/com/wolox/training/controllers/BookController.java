@@ -42,25 +42,25 @@ public class BookController {
     }
 
     @GetMapping("/{id}")
-    public final Book findOne(@PathVariable Long id) {
+    public final Book findOne(@PathVariable final Long id) {
         return bookRepository.findById(id).orElseThrow(BookNotFoundException::new);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public final Book create(@RequestBody Book book) {
+    public final Book create(@RequestBody final Book book) {
         return bookRepository.save(book);
     }
 
     @DeleteMapping("/{id}")
-    public final void delete(@PathVariable Long id) {
+    public final void delete(@PathVariable final Long id) {
         bookRepository.findById(id).orElseThrow(BookNotFoundException::new);
         bookRepository.deleteById(id);
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public final Book updateBook(@RequestBody Book book, @PathVariable Long id) {
+    public Book updateBook(@RequestBody final Book book, @PathVariable final Long id) {
         if (book.getId() != id) {
             throw new BookIdMismatchException();
         }
@@ -69,7 +69,7 @@ public class BookController {
     }
 
     @GetMapping("/author/{bookAuthor}")
-    public final Iterable<Book> findByAuthor(@PathVariable String bookAuthor) {
+    public Iterable<Book> findByAuthor(@PathVariable final String bookAuthor) {
         return bookRepository.findByAuthor(bookAuthor).orElseThrow(BookNotFoundException::new);
     }
 
