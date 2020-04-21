@@ -13,8 +13,6 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
-    public static final String BOOK_ID_MISMATCH = "Book ID mismatch";
-
     @ExceptionHandler({ BookNotFoundException.class })
     protected final ResponseEntity<Object> handleNotFound(Exception ex, WebRequest request) {
         return handleExceptionInternal(ex, null,
@@ -25,7 +23,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         ConstraintViolationException.class,
         DataIntegrityViolationException.class })
     public final ResponseEntity<Object> handleBadRequest(Exception ex, WebRequest request) {
-        return handleExceptionInternal(ex, BOOK_ID_MISMATCH,
+        return handleExceptionInternal(ex, "Book ID mismatch",
             new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
 }
