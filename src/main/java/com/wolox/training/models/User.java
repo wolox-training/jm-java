@@ -83,14 +83,18 @@ public class User {
 
     public void setBooks(final List<Book> books) {
         for (Book book : books) {
-            checkAlreadyOwned(book);
+            addBook(book);
         }
-        this.books = books;
     }
 
-    private void checkAlreadyOwned(Book book){
-       if (books.contains(book)){
-           throw new BookAlreadyOwnedException();
-       }
+    public void addBook(Book book) {
+        checkAlreadyOwned(book);
+        getBooks().add(book);
+    }
+
+    private void checkAlreadyOwned(final Book book){
+        if (getBooks().contains(book)){
+            throw new BookAlreadyOwnedException();
+        }
     }
 }
