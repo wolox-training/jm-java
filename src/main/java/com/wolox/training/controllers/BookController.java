@@ -70,8 +70,8 @@ public class BookController {
     }
 
     @GetMapping("/author/{bookAuthor}")
-    public Iterable<Book> findByAuthor(@PathVariable final String bookAuthor) {
-        return bookRepository.findByAuthor(bookAuthor).orElseThrow(BookNotFoundException::new);
+    public Book findTopByAuthor(@PathVariable final String bookAuthor) {
+        return bookRepository.findTopByAuthor(bookAuthor).orElseThrow(BookNotFoundException::new);
     }
 
 }

@@ -1,5 +1,7 @@
 package com.wolox.training.exceptions;
 
+import static com.wolox.training.constants.ExceptionMessages.BOOK_ID_MISMATCH;
+
 import javax.validation.ConstraintViolationException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;

@@ -6,6 +6,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface BookRepository extends CrudRepository<Book, Long> {
 
-    Optional<Iterable<Book>> findByAuthor(final String author);
+    Optional<Book> findTopByAuthor(final String author);
 
 }
