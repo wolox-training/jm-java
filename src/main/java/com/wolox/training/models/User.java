@@ -1,13 +1,19 @@
 package com.wolox.training.models;
 
+import com.wolox.training.exceptions.BookAlreadyOwnedException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -17,12 +23,10 @@ public class User {
     public User() {
     }
 
-    public User(final String username,final String name,final LocalDate birthDate,
-        List<Book> books) {
+    public User(String username, String name, LocalDate birthDate) {
         this.username = username;
         this.name = name;
         this.birthDate = birthDate;
-        this.books = books;
     }
 
     @Id
@@ -38,8 +42,12 @@ public class User {
     @Column(nullable = false)
     private LocalDate birthDate;
 
-    @OneToMany(mappedBy = "user")
-    private List<Book> books;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "book_user",
+        joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(name = "user_id",
+            referencedColumnName = "id"))
+    private List<Book> books = new ArrayList<>();
 
     public long getId() {
         return id;
@@ -70,10 +78,19 @@ public class User {
     }
 
     public List<Book> getBooks() {
-        return books;
+        return Collections.unmodifiableList(books);
     }
 
     public void setBooks(final List<Book> books) {
+        for (Book book : books) {
+            checkAlreadyOwned(book);
+        }
         this.books = books;
+    }
+
+    private void checkAlreadyOwned(Book book){
+       if (books.contains(book)){
+           throw new BookAlreadyOwnedException();
+       }
     }
 }
