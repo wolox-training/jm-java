@@ -1,6 +1,7 @@
 package com.wolox.training.models;
 
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -55,7 +56,7 @@ public class Book {
     @Column(nullable = false)
     private String isbn;
 
-    @ManyToMany(mappedBy = "books")
+    @ManyToMany(mappedBy = "books", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<User> users;
 
     public List<User> getUsers() {
