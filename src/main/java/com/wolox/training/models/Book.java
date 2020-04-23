@@ -1,5 +1,6 @@
 package com.wolox.training.models;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -56,8 +57,8 @@ public class Book {
     @Column(nullable = false)
     private String isbn;
 
-    @ManyToMany(mappedBy = "books", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<User> users;
+    @ManyToMany(mappedBy = "books")
+    private List<User> users = new ArrayList<>();
 
     public List<User> getUsers() {
         return users;
