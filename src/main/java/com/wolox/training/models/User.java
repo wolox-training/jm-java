@@ -89,11 +89,11 @@ public class User {
 
     public void addBook(Book book) {
         checkAlreadyOwned(book);
-        getBooks().add(book);
+        this.books.add(book);
     }
 
     private void checkAlreadyOwned(final Book book){
-        if (getBooks().contains(book)){
+        if (this.books.contains(book)){
             throw new BookAlreadyOwnedException();
         }
     }
