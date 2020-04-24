@@ -1,10 +1,14 @@
 package com.wolox.training.models;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Book {
@@ -12,7 +16,8 @@ public class Book {
     public Book() {
     }
 
-    public Book(String genre, String author, String title, String subtitle, String publisher, String year, Integer pages, String isbn) {
+    public Book(String genre, String author, String title, String subtitle, String publisher,
+        String year, Integer pages, String isbn, List<User> users) {
         this.genre = genre;
         this.author = author;
         this.title = title;
@@ -21,6 +26,7 @@ public class Book {
         this.year = year;
         this.pages = pages;
         this.isbn = isbn;
+        this.users = users;
     }
 
     @Id
@@ -50,6 +56,17 @@ public class Book {
 
     @Column(nullable = false)
     private String isbn;
+
+    @ManyToMany(mappedBy = "books")
+    private List<User> users = new ArrayList<>();
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
 
     public long getId() {
         return id;
