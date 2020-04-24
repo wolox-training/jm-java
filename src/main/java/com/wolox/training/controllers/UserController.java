@@ -66,7 +66,7 @@ public class UserController {
     }
 
     @GetMapping("/name/{name}")
-    public User findTopByAuthor(@PathVariable final String name) {
+    public User findTopByName(@PathVariable final String name) {
         return userRepository.findTopByName(name).orElseThrow(UserNotFoundException::new);
     }
 
