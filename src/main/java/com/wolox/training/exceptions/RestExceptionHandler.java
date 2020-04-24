@@ -2,6 +2,7 @@ package com.wolox.training.exceptions;
 
 import static com.wolox.training.constants.ExceptionMessages.BOOK_ALREADY_OWNED;
 import static com.wolox.training.constants.ExceptionMessages.BOOK_ID_MISMATCH;
+import static com.wolox.training.constants.ExceptionMessages.USER_ID_MISMATCH;
 
 import javax.validation.ConstraintViolationException;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -17,16 +18,26 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler({ BookNotFoundException.class })
-    protected final ResponseEntity<Object> handleNotFound(Exception ex, WebRequest request) {
+    protected final ResponseEntity<Object> handleBookNotFound(Exception ex, WebRequest request) {
         return handleExceptionInternal(ex, null,
             new HttpHeaders(), HttpStatus.NOT_FOUND, request);
     }
 
-    @ExceptionHandler({ BookIdMismatchException.class,
-        ConstraintViolationException.class,
-        DataIntegrityViolationException.class })
-    public final ResponseEntity<Object> handleBadRequest(Exception ex, WebRequest request) {
+    @ExceptionHandler({ UserNotFoundException.class })
+    protected final ResponseEntity<Object> handleUserNotFound(Exception ex, WebRequest request) {
+        return handleExceptionInternal(ex, null,
+            new HttpHeaders(), HttpStatus.NOT_FOUND, request);
+    }
+
+    @ExceptionHandler({ BookIdMismatchException.class })
+    public final ResponseEntity<Object> handleBookBadRequest(Exception ex, WebRequest request) {
         return handleExceptionInternal(ex, BOOK_ID_MISMATCH,
+            new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+    }
+
+    @ExceptionHandler({ UserIdMismatchException.class })
+    public final ResponseEntity<Object> handleUserBadRequest(Exception ex, WebRequest request) {
+        return handleExceptionInternal(ex, USER_ID_MISMATCH,
             new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
 
