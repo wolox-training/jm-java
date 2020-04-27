@@ -4,6 +4,10 @@ import com.wolox.training.exceptions.BookIdMismatchException;
 import com.wolox.training.exceptions.BookNotFoundException;
 import com.wolox.training.models.Book;
 import com.wolox.training.repositories.BookRepository;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
@@ -21,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @RestController
 @RequestMapping("/api/books")
+@Api(tags = "Books")
 public class BookController {
 
     @Autowired
@@ -35,23 +40,55 @@ public class BookController {
     }
 
     @GetMapping
+    @ApiOperation(value = "Return an index for Books", response = Iterable.class)
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "Book List retrieved"),
+        @ApiResponse(code = 400, message = "Malformed request"),
+        @ApiResponse(code = 401, message = "Unauthorized access"),
+        @ApiResponse(code = 404, message = "Resource not found"),
+        @ApiResponse(code = 500, message = "Internal server error")
+    })
     public Iterable<Book> findAll() {
         return bookRepository.findAll();
     }
 
     @GetMapping("/{id}")
+    @ApiOperation(value = "Given an ID shows associated Book", response = Book.class)
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "Book found"),
+        @ApiResponse(code = 400, message = "Malformed request"),
+        @ApiResponse(code = 401, message = "Unauthorized access"),
+        @ApiResponse(code = 404, message = "Resource not found"),
+        @ApiResponse(code = 500, message = "Internal server error")
+    })
     public Book findOne(@PathVariable final Long id) {
         return bookRepository.findById(id).orElseThrow(BookNotFoundException::new);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @ApiOperation(value = "Creates a book based on given params", response = Book.class)
+    @ApiResponses(value = {
+        @ApiResponse(code = 201, message = "Book created"),
+        @ApiResponse(code = 400, message = "Malformed request"),
+        @ApiResponse(code = 401, message = "Unauthorized access"),
+        @ApiResponse(code = 404, message = "Resource not found"),
+        @ApiResponse(code = 500, message = "Internal server error")
+    })
     public Book create(@RequestBody final Book book) {
         return bookRepository.save(book);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ApiOperation(value = "Given an ID, deletes the associated Book")
+    @ApiResponses(value = {
+        @ApiResponse(code = 204, message = "Book deleted"),
+        @ApiResponse(code = 400, message = "Malformed request"),
+        @ApiResponse(code = 401, message = "Unauthorized access"),
+        @ApiResponse(code = 404, message = "Resource not found"),
+        @ApiResponse(code = 500, message = "Internal server error")
+    })
     public void delete(@PathVariable final Long id) {
         bookRepository.findById(id).orElseThrow(BookNotFoundException::new);
         bookRepository.deleteById(id);
@@ -59,6 +96,14 @@ public class BookController {
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
+    @ApiOperation(value = "Updates a book based on given params", response = Book.class)
+    @ApiResponses(value = {
+        @ApiResponse(code = 202, message = "Book updated"),
+        @ApiResponse(code = 400, message = "Malformed request"),
+        @ApiResponse(code = 401, message = "Unauthorized access"),
+        @ApiResponse(code = 404, message = "Resource not found"),
+        @ApiResponse(code = 500, message = "Internal server error")
+    })
     public Book updateBook(@RequestBody final Book book, @PathVariable final Long id) {
         if (book.getId() != id) {
             throw new BookIdMismatchException();
@@ -68,6 +113,14 @@ public class BookController {
     }
 
     @GetMapping("/author/{bookAuthor}")
+    @ApiOperation(value = "Given an author's name, returns the associated book", response = Book.class)
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "Book found"),
+        @ApiResponse(code = 400, message = "Malformed request"),
+        @ApiResponse(code = 401, message = "Unauthorized access"),
+        @ApiResponse(code = 404, message = "Resource not found"),
+        @ApiResponse(code = 500, message = "Internal server error")
+    })
     public Book findTopByAuthor(@PathVariable final String bookAuthor) {
         return bookRepository.findTopByAuthor(bookAuthor).orElseThrow(BookNotFoundException::new);
     }
