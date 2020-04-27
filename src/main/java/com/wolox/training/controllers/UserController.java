@@ -72,14 +72,14 @@ public class UserController {
 
     @PutMapping("/{id}/books")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public void addBooks( @PathVariable Long id, @RequestBody final List<Book> books){
+    public void addBooks( @PathVariable final Long id, @RequestBody final List<Book> books){
         User user = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
         user.setBooks(books);
     }
 
     @DeleteMapping("/{id}/books/{book_id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteBook(@PathVariable Long id, @PathVariable Long book_id){
+    public void deleteBook(@PathVariable final Long id, @PathVariable final Long book_id){
         userRepository.findById(id).orElseThrow(UserNotFoundException::new);
         bookRepository.findById(book_id).orElseThrow(BookNotFoundException::new);
         bookRepository.deleteById(book_id);
