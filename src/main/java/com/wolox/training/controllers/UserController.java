@@ -1,6 +1,7 @@
 package com.wolox.training.controllers;
 
 import com.wolox.training.exceptions.BookNotFoundException;
+import com.wolox.training.exceptions.UserAlreadyExistsException;
 import com.wolox.training.exceptions.UserIdMismatchException;
 import com.wolox.training.exceptions.UserNotFoundException;
 import com.wolox.training.models.Book;
@@ -8,6 +9,7 @@ import com.wolox.training.models.User;
 import com.wolox.training.repositories.BookRepository;
 import com.wolox.training.repositories.UserRepository;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -43,6 +45,10 @@ public class UserController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public User create(@RequestBody final User user) {
+        final Optional<User> username = userRepository.findTopByUsername(user.getUsername());
+        username.ifPresent(value -> {
+            throw new UserAlreadyExistsException();
+        });
         return userRepository.save(user);
     }
 

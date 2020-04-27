@@ -2,10 +2,9 @@ package com.wolox.training.exceptions;
 
 import static com.wolox.training.constants.ExceptionMessages.BOOK_ALREADY_OWNED;
 import static com.wolox.training.constants.ExceptionMessages.BOOK_ID_MISMATCH;
+import static com.wolox.training.constants.ExceptionMessages.USERNAME_ALREADY_TAKEN;
 import static com.wolox.training.constants.ExceptionMessages.USER_ID_MISMATCH;
 
-import javax.validation.ConstraintViolationException;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,6 +43,12 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler({ BookAlreadyOwnedException.class })
     protected final ResponseEntity<Object> handleBookAlreadyOwned(Exception ex, WebRequest request) {
         return handleExceptionInternal(ex, BOOK_ALREADY_OWNED,
+            new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+    }
+
+    @ExceptionHandler({ UserAlreadyExistsException.class })
+    public final ResponseEntity<Object> handleTakenUsername(Exception ex, WebRequest request) {
+        return handleExceptionInternal(ex, USERNAME_ALREADY_TAKEN,
             new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
 }
