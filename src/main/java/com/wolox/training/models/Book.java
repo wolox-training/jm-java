@@ -1,6 +1,8 @@
 package com.wolox.training.models;
 
+import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
+import static com.wolox.training.constants.ExceptionMessages.GREATER_THAN_ZERO;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -136,6 +138,7 @@ public class Book {
     }
 
     public void setPages(Integer pages) {
+        checkArgument(pages > 0, GREATER_THAN_ZERO, "pages");
         this.pages = checkNotNull(pages);
     }
 
