@@ -4,6 +4,7 @@ import com.wolox.training.exceptions.BookIdMismatchException;
 import com.wolox.training.exceptions.BookNotFoundException;
 import com.wolox.training.models.Book;
 import com.wolox.training.repositories.BookRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,11 +23,8 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/api/books")
 public class BookController {
 
-    private final BookRepository bookRepository;
-
-    public BookController(BookRepository bookRepository) {
-        this.bookRepository = bookRepository;
-    }
+    @Autowired
+    private BookRepository bookRepository;
 
     @GetMapping("/greeting")
     public ModelAndView greeting (@RequestParam(name="name", required=false, defaultValue="Stranger") final String name, Model model) {
