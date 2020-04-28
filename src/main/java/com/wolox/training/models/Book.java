@@ -1,5 +1,7 @@
 package com.wolox.training.models;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
@@ -20,15 +22,15 @@ public class Book {
 
     public Book(String genre, String author, String title, String subtitle, String publisher,
         String year, Integer pages, String isbn, List<User> users) {
-        this.genre = genre;
-        this.author = author;
-        this.title = title;
-        this.subtitle = subtitle;
-        this.publisher = publisher;
-        this.year = year;
-        this.pages = pages;
-        this.isbn = isbn;
-        this.users = users;
+        setGenre(genre);
+        setAuthor(author);
+        setTitle(title);
+        setSubtitle(subtitle);
+        setPublisher(publisher);
+        setYear(year);
+        setPages(pages);
+        setIsbn(isbn);
+        setUsers(users);
     }
 
     @Id
@@ -95,16 +97,14 @@ public class Book {
         return author;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
-    }
+    public void setAuthor(String author) { this.author = checkNotNull(author); }
 
     public String getTitle() {
         return title;
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        this.title = checkNotNull(title);
     }
 
     public String getSubtitle() {
@@ -112,7 +112,7 @@ public class Book {
     }
 
     public void setSubtitle(String subtitle) {
-        this.subtitle = subtitle;
+        this.subtitle = checkNotNull(subtitle);
     }
 
     public String getPublisher() {
@@ -120,7 +120,7 @@ public class Book {
     }
 
     public void setPublisher(String publisher) {
-        this.publisher = publisher;
+        this.publisher = checkNotNull(publisher);
     }
 
     public String getYear() {
@@ -128,7 +128,7 @@ public class Book {
     }
 
     public void setYear(String year) {
-        this.year = year;
+        this.year = checkNotNull(year);
     }
 
     public Integer getPages() {
@@ -136,7 +136,7 @@ public class Book {
     }
 
     public void setPages(Integer pages) {
-        this.pages = pages;
+        this.pages = checkNotNull(pages);
     }
 
     public String getIsbn() {
@@ -144,6 +144,6 @@ public class Book {
     }
 
     public void setIsbn(String isbn) {
-        this.isbn = isbn;
+        this.isbn = checkNotNull(isbn);
     }
 }

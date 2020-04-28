@@ -1,5 +1,7 @@
 package com.wolox.training.models;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import com.wolox.training.exceptions.BookAlreadyOwnedException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -22,9 +24,9 @@ public class User {
     }
 
     public User(String username, String name, LocalDate birthDate) {
-        this.username = username;
-        this.name = name;
-        this.birthDate = birthDate;
+        setUsername(username);
+        setName(name);
+        setBirthDate(birthDate);
     }
 
     @Id
@@ -52,7 +54,7 @@ public class User {
     }
 
     public void setUsername(final String username) {
-        this.username = username;
+        this.username = checkNotNull(username);
     }
 
     public String getName() {
@@ -60,16 +62,14 @@ public class User {
     }
 
     public void setName(final String name) {
-        this.name = name;
+        this.name = checkNotNull(name);
     }
 
     public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(final LocalDate birthDate) {
-        this.birthDate = birthDate;
-    }
+    public void setBirthDate(final LocalDate birthDate) { this.birthDate = checkNotNull(birthDate); }
 
     public List<Book> getBooks() {
         return Collections.unmodifiableList(books);
