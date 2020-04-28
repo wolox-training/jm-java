@@ -6,6 +6,7 @@ import com.wolox.training.models.Book;
 import com.wolox.training.repositories.BookRepository;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,7 +62,7 @@ public class BookController {
         @ApiResponse(code = 404, message = "Resource not found"),
         @ApiResponse(code = 500, message = "Internal server error")
     })
-    public Book findOne(@PathVariable final Long id) {
+    public Book findOne(@ApiParam(value = "ID of the book", required = true) @PathVariable final Long id) {
         return bookRepository.findById(id).orElseThrow(BookNotFoundException::new);
     }
 
@@ -75,7 +76,7 @@ public class BookController {
         @ApiResponse(code = 404, message = "Resource not found"),
         @ApiResponse(code = 500, message = "Internal server error")
     })
-    public Book create(@RequestBody final Book book) {
+    public Book create(@ApiParam(value = "Attributes of the book", required = true) @RequestBody final Book book) {
         return bookRepository.save(book);
     }
 
@@ -89,7 +90,7 @@ public class BookController {
         @ApiResponse(code = 404, message = "Resource not found"),
         @ApiResponse(code = 500, message = "Internal server error")
     })
-    public void delete(@PathVariable final Long id) {
+    public void delete(@ApiParam(value = "ID of the book to delete", required = true) @PathVariable final Long id) {
         bookRepository.findById(id).orElseThrow(BookNotFoundException::new);
         bookRepository.deleteById(id);
     }
@@ -104,7 +105,8 @@ public class BookController {
         @ApiResponse(code = 404, message = "Resource not found"),
         @ApiResponse(code = 500, message = "Internal server error")
     })
-    public Book updateBook(@RequestBody final Book book, @PathVariable final Long id) {
+    public Book updateBook(@ApiParam(value = "Book attributes", required = true) @RequestBody final Book book,
+        @ApiParam(value = "ID of the book to update", required = true) @PathVariable final Long id) {
         if (book.getId() != id) {
             throw new BookIdMismatchException();
         }
@@ -121,7 +123,7 @@ public class BookController {
         @ApiResponse(code = 404, message = "Resource not found"),
         @ApiResponse(code = 500, message = "Internal server error")
     })
-    public Book findTopByAuthor(@PathVariable final String bookAuthor) {
+    public Book findTopByAuthor(@ApiParam(value = "Author's name to fetch", required = true) @PathVariable final String bookAuthor) {
         return bookRepository.findTopByAuthor(bookAuthor).orElseThrow(BookNotFoundException::new);
     }
 
