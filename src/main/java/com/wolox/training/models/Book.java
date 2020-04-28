@@ -2,6 +2,7 @@ package com.wolox.training.models;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
@@ -71,6 +72,7 @@ public class Book {
     private String isbn;
 
     @ManyToMany(mappedBy = "books")
+    @JsonBackReference
     private List<User> users = new ArrayList<>();
 
     public List<User> getUsers() {
