@@ -80,7 +80,7 @@ public class User {
     }
 
     public void setBirthDate(final LocalDate birthDate) {
-        checkArgument(birthDate.isAfter(LocalDate.now()), INVALID_BIRTHDATE);
+        checkArgument(birthDate.isBefore(LocalDate.now()), INVALID_BIRTHDATE);
         this.birthDate = checkNotNull(birthDate);
     }
 
