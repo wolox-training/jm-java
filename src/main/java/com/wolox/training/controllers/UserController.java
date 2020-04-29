@@ -79,6 +79,7 @@ public class UserController {
     public void addBooks( @PathVariable final Long id, @RequestBody final List<Book> books){
         User user = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
         user.setBooks(books);
+        userRepository.save(user);
     }
 
     @DeleteMapping("/{id}/books/{book_id}")
