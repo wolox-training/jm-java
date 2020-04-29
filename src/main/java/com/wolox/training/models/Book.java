@@ -4,6 +4,7 @@ import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.wolox.training.constants.ExceptionMessages.GREATER_THAN_ZERO;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
@@ -73,6 +74,7 @@ public class Book {
     private String isbn;
 
     @ManyToMany(mappedBy = "books")
+    @JsonBackReference
     private List<User> users = new ArrayList<>();
 
     public List<User> getUsers() {
