@@ -1,5 +1,7 @@
 package com.wolox.training.models;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
@@ -10,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
 @Entity
+@ApiModel(description = "Library Books")
 public class Book {
 
     public Book() {
@@ -30,30 +33,39 @@ public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
+
     private long id;
 
     @Column
+    @ApiModelProperty(notes = "The book genre, could be Horror, Comedy, Drama, etc.")
     private String genre;
 
     @Column(nullable = false)
+    @ApiModelProperty(notes = "Book's Author name")
     private String author;
 
     @Column(nullable = false)
+    @ApiModelProperty(notes = "Book's tittle")
     private String title;
 
     @Column(nullable = false)
+    @ApiModelProperty(notes = "Book's subtitle")
     private String subtitle;
 
     @Column(nullable = false)
+    @ApiModelProperty(notes = "Book's publisher")
     private String publisher;
 
     @Column(nullable = false)
+    @ApiModelProperty(notes = "Book's year of publication")
     private String year;
 
     @Column(nullable = false)
+    @ApiModelProperty(notes = "Book's number of pages")
     private Integer pages;
 
     @Column(nullable = false)
+    @ApiModelProperty(notes = "Book's International Standard Book Number")
     private String isbn;
 
     @ManyToMany(mappedBy = "books")
