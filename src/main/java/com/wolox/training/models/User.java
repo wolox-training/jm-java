@@ -2,7 +2,6 @@ package com.wolox.training.models;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
-import static com.wolox.training.constants.ExceptionMessages.GREATER_THAN_ZERO;
 import static com.wolox.training.constants.ExceptionMessages.INVALID_BIRTHDATE;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
