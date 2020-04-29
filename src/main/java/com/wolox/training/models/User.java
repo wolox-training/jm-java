@@ -1,6 +1,8 @@
 package com.wolox.training.models;
 
+import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
+import static com.wolox.training.constants.ExceptionMessages.INVALID_BIRTHDATE;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.wolox.training.exceptions.BookAlreadyOwnedException;
@@ -77,7 +79,10 @@ public class User {
         return birthDate;
     }
 
-    public void setBirthDate(final LocalDate birthDate) { this.birthDate = checkNotNull(birthDate); }
+    public void setBirthDate(final LocalDate birthDate) {
+        checkArgument(birthDate.isAfter(LocalDate.now()), INVALID_BIRTHDATE);
+        this.birthDate = checkNotNull(birthDate);
+    }
 
     public List<Book> getBooks() {
         return Collections.unmodifiableList(books);
