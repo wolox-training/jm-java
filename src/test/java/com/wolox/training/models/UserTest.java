@@ -22,7 +22,6 @@ class UserTest {
     @Autowired
     private UserRepository userRepository;
 
-
     @Test
     public void whenFindTopByName_thenReturnUser() {
         User user = new User("jhon_doe", "Jhon Doe", LocalDate.of(1990,1,1));
