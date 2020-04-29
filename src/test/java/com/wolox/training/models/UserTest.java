@@ -49,4 +49,10 @@ class UserTest {
         assertThrows(NullPointerException.class, () -> user.setBirthDate(null));
     }
 
+    @Test
+    public void whenInvalidBirthdate_throwsException() {
+        User user = new User("jhon_doe", "Jhon Doe", LocalDate.of(1990,1,1));
+        assertThrows(IllegalArgumentException.class, () -> user.setBirthDate(LocalDate.now()));
+    }
+
 }
