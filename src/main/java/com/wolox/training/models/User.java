@@ -2,6 +2,7 @@ package com.wolox.training.models;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
+import static com.wolox.training.constants.ExceptionMessages.BLANK_VALUE;
 import static com.wolox.training.constants.ExceptionMessages.INVALID_BIRTHDATE;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -64,6 +65,7 @@ public class User {
     }
 
     public void setUsername(final String username) {
+        checkArgument(username.length() > 0, BLANK_VALUE, "username");
         this.username = checkNotNull(username);
     }
 
@@ -72,6 +74,7 @@ public class User {
     }
 
     public void setName(final String name) {
+        checkArgument(name.length() > 0, BLANK_VALUE, "name");
         this.name = checkNotNull(name);
     }
 

@@ -2,6 +2,7 @@ package com.wolox.training.models;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
+import static com.wolox.training.constants.ExceptionMessages.BLANK_VALUE;
 import static com.wolox.training.constants.ExceptionMessages.GREATER_THAN_ZERO;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -101,13 +102,17 @@ public class Book {
         return author;
     }
 
-    public void setAuthor(String author) { this.author = checkNotNull(author); }
+    public void setAuthor(String author) {
+        checkArgument(author.length() > 0, BLANK_VALUE, "author");
+        this.author = checkNotNull(author);
+    }
 
     public String getTitle() {
         return title;
     }
 
     public void setTitle(String title) {
+        checkArgument(title.length() > 0, BLANK_VALUE, "title");
         this.title = checkNotNull(title);
     }
 
@@ -116,6 +121,7 @@ public class Book {
     }
 
     public void setSubtitle(String subtitle) {
+        checkArgument(subtitle.length() > 0, BLANK_VALUE, "subtitle");
         this.subtitle = checkNotNull(subtitle);
     }
 
@@ -124,6 +130,7 @@ public class Book {
     }
 
     public void setPublisher(String publisher) {
+        checkArgument(publisher.length() > 0, BLANK_VALUE, "publisher");
         this.publisher = checkNotNull(publisher);
     }
 
@@ -132,6 +139,7 @@ public class Book {
     }
 
     public void setYear(String year) {
+        checkArgument(year.length() > 0, BLANK_VALUE, "year");
         this.year = checkNotNull(year);
     }
 
