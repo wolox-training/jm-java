@@ -4,7 +4,6 @@ import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.wolox.training.constants.ExceptionMessages.INVALID_BIRTHDATE;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.wolox.training.exceptions.BookAlreadyOwnedException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -48,7 +47,6 @@ public class User {
     private LocalDate birthDate;
 
     @ManyToMany(cascade = {CascadeType.REFRESH, CascadeType.MERGE})
-    @JsonManagedReference
     @JoinTable(name = "users_books",
         joinColumns = @JoinColumn(name = "books_id", referencedColumnName = "id"),
         inverseJoinColumns = @JoinColumn(name = "users_id",
